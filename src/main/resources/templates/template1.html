@@ -18,19 +18,24 @@
             <li class="nav-item">
                 <a class="nav-link active" th:href="@{/}">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                    Medecins
+                </a>
+                <ul class="dropdown-menu">
+                    <li sec:authorize="hasAuthority('ADMIN')"><a class="dropdown-item" th:href="@{/admin/formMedecins}">Nouveau</a></li>
+                    <li><a class="dropdown-item" th:href="@{/user/listeM}">Chercher </a></li>
+                </ul>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                     Patients
                 </a>
                 <ul class="dropdown-menu">
                     <li sec:authorize="hasAuthority('ADMIN')"><a class="dropdown-item" th:href="@{/admin/formPatients}">Nouveau</a></li>
-                    <li><a class="dropdown-item" th:href="@{/user/index}">Chercher </a></li>
+                    <li><a class="dropdown-item" th:href="@{/user/listeP}">Chercher </a></li>
                 </ul>
             </li>
         </ul>
@@ -54,5 +59,7 @@
 <section layout:fragment="content1">
 
 </section>
+
+
 </body>
 </html>

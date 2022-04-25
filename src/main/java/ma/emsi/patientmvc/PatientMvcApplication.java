@@ -1,6 +1,8 @@
 package ma.emsi.patientmvc;
 
+import ma.emsi.patientmvc.entities.Medecin;
 import ma.emsi.patientmvc.entities.Patient;
+import ma.emsi.patientmvc.repositories.MedecinRepository;
 import ma.emsi.patientmvc.repositories.PatientRepository;
 import ma.emsi.patientmvc.sec.service.SecurityService;
 import org.springframework.boot.CommandLineRunner;
@@ -50,6 +52,23 @@ public class PatientMvcApplication {
             securityService.addRoleToUser("mohamed","USER");
             securityService.addRoleToUser("hassan","ADMIN");
             securityService.addRoleToUser("hassan","USER");
+        };
+    }
+
+    //@Bean
+    CommandLineRunner commandLineRunner(MedecinRepository medecinRepository){
+        return  args -> {
+            medecinRepository.save(new Medecin(null,"Hassan","cardiologue",new Date(),true));
+            medecinRepository.save(new Medecin(null,"mehdi","dermatologue",new Date(),false));
+            medecinRepository.save(new Medecin(null,"hamza","Dentiste",new Date(),false));
+            medecinRepository.save(new Medecin(null,"youssra","générale",new Date(),true));
+            medecinRepository.save(new Medecin(null,"achraf","pneumologue",new Date(),false));
+            medecinRepository.save(new Medecin(null,"mohamed","Dentiste",new Date(),false));
+            medecinRepository.save(new Medecin(null,"soukaina","cardiologue",new Date(),true));
+
+            medecinRepository.findAll().forEach(m->{
+                System.out.println(m.getNom());
+            });
         };
     }
 }

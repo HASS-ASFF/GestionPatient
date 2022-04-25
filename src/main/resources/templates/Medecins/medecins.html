@@ -6,15 +6,15 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Patients</title>
+    <title>Medecins</title>
 </head>
 <body>
 <div layout:fragment="content1">
     <div class="container mt-2">
         <div class="card">
-            <div class="card-header">Liste des Patients</div>
+            <div class="card-header">Liste des Medecins</div>
             <div class="card-body">
-                <form method="get" th:action="@{/user/index}">
+                <form method="get" th:action="@{/user/listeM}">
                     <label>Name</label>
                     <input type="text" name="keyword" th:value="${keyword}">
                     <button type="submit" class="btn btn-primary">Chercher</button>
@@ -25,24 +25,24 @@
                         <th>ID</th>
                         <th>Nom</th>
                         <th>Date</th>
-                        <th>Malade</th>
-                        <th>Score</th>
+                        <th>specialite</th>
+                        <th>Disponibilite</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="p:${listPatients}">
-                        <td th:text="${p.id}"></td>
-                        <td th:text="${p.nom}"></td>
-                        <td th:text="${p.dateNaissance}"></td>
-                        <td th:text="${p.malade}"></td>
-                        <td th:text="${p.score}"></td>
+                    <tr th:each="m:${listMedecins}">
+                        <td th:text="${m.id}"></td>
+                        <td th:text="${m.nom}"></td>
+                        <td th:text="${m.dateNaissance}"></td>
+                        <td th:text="${m.specialite}"></td>
+                        <td th:text="${m.disponibilite}"></td>
                         <td sec:authorize="hasAuthority('ADMIN')">
-                            <a onclick="return confirm('Etes vous sur de vouloir supprimer ce patient ?')" class="btn btn-danger" th:href="@{/admin/delete(id=${p.id},keyword=${keyword}, page=${currentPage})}">
+                            <a onclick="return confirm('Etes vous sur de vouloir supprimer ce patient ?')" class="btn btn-danger" th:href="@{/admin/deleteMedecin(id=${m.id},keyword=${keyword}, page=${currentPage})}">
                                 Delete
                             </a>
                         </td>
                         <td sec:authorize="hasAuthority('ADMIN')">
-                            <a  class="btn btn-success" th:href="@{/admin/editPatient(id=${p.id},keyword=${keyword}, page=${currentPage})}">
+                            <a  class="btn btn-success" th:href="@{/admin/editMedecin(id=${m.id},keyword=${keyword}, page=${currentPage})}">
                                 Edit
                             </a>
                         </td>
@@ -53,7 +53,7 @@
                     <li th:each="page,status:${pages}">
                         <a th:class="${status.index==currentPage?'btn btn-primary ms-1':'btn btn-outline-info ms-1'}"
                            th:text="${status.index}"
-                           th:href="@{/user/index(page=${status.index},keyword=${keyword})}"></a>
+                           th:href="@{/user/listeM(page=${status.index},keyword=${keyword})}"></a>
                     </li>
                 </ul>
             </div>

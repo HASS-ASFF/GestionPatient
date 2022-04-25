@@ -21,29 +21,25 @@ import java.util.List;
 public class PatientController {
     private PatientRepository patientRepository;
 
-    @GetMapping(path = "/user/index")
+    @GetMapping(path = "/user/listeP")
     public String patients(Model model,
                            @RequestParam(name = "page",defaultValue ="0") int page,
                            @RequestParam(name="size",defaultValue ="5") int size,
-                           @RequestParam(name="keyword",defaultValue ="") String keyword){
+                           @RequestParam(name="keyword",defaultValue ="") String keyword) {
         Page<Patient> pagePatients = patientRepository.findByNomContains(keyword,PageRequest.of(page,size));
         model.addAttribute("listPatients",pagePatients.getContent());
         model.addAttribute("pages",new int[pagePatients.getTotalPages()]);
         model.addAttribute("currentPage",page);
         model.addAttribute("keyword",keyword);
-        return "patients";
+        return "Patients/patients";
     }
 
-    @GetMapping(path = "/admin/delete")
+    @GetMapping(path = "/admin/deletePatient")
     public String delete(Long id,String keyword,int page){
         patientRepository.deleteById(id);
-        return "redirect:/user/index?page="+page+"&keyword="+keyword;
+        return "redirect:/user/listeP?page="+page+"&keyword="+keyword;
     }
 
-    @GetMapping("/")
-    public String home(){
-        return "home";
-    }
 
     @GetMapping("/user/patients")
     @ResponseBody
@@ -54,16 +50,16 @@ public class PatientController {
     @GetMapping("/admin/formPatients")
     public String formPatient(Model model){
         model.addAttribute("patient",new Patient());
-        return "formPatients";
+        return "Patients/formPatients";
     }
 
-    @PostMapping("/admin/save")
+    @PostMapping("/admin/savePatient")
     public String save(Model model, @Valid Patient patient, BindingResult bindingResult,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "") String keyword){
         if(bindingResult.hasErrors()) return "formPatients";
         patientRepository.save(patient);
-        return "redirect:/user/index?page="+page+"&keyword="+keyword;
+        return "redirect:/user/listeP?page="+page+"&keyword="+keyword;
     }
 
     @GetMapping("/admin/editPatient")
@@ -73,6 +69,6 @@ public class PatientController {
         model.addAttribute("patient",patient);
         model.addAttribute("keyword",keyword);
         model.addAttribute("page",page);
-        return "editPatient";
+        return "Patients/editPatient";
     }
 }
