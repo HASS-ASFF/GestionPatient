@@ -9,3 +9,15 @@
 <li>Partie 5: Quelques Améliorations...</li>
 </ul>
 
+# Acceuil
+
+<img src="src/main/resources/static/Capture1.PNG">
+
+# Partie Patients
+
+<img src="src/main/resources/static/Capture3.PNG">
+
+# Partie Medecins
+
+<img src="src/main/resources/static/Capture2.PNG">
+
